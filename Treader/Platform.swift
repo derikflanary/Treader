@@ -24,9 +24,20 @@ class Platform: SKSpriteNode {
         physicsBody?.allowsRotation = false
 
     }
+    
+    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func move(totalWidth: CGFloat){
+        let moveLeft = SKAction.moveToX(position.x - totalWidth - self.size.width, duration: 3)
+        
+        let move = SKAction.moveByX(-totalWidth - 500, y: 0, duration: 4)
+        let die = SKAction.removeFromParent()
+        runAction(SKAction.sequence([move, die]))
+
     }
 
 }
