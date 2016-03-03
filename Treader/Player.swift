@@ -12,7 +12,7 @@ import SpriteKit
 class Player: SKSpriteNode {
     
 //MARK: - PROPERTIES
-    private(set) internal var isJumping = false
+    var isJumping = false
     var changedGravity = false
     var delegate: PlayerDelegate?
 

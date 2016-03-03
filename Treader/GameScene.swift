@@ -172,6 +172,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
             physicsWorld.gravity.dy = physicsWorld.gravity.dy * -1
             gravityDirection.flip()
             gravityChanged = true
+            player.isJumping = true
         }
     }
     
