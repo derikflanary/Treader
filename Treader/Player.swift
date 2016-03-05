@@ -15,6 +15,7 @@ class Player: SKSpriteNode {
     var isJumping = false
     var changedGravity = false
     var delegate: PlayerDelegate?
+    var previousYVelocity: CGFloat = 0
 
 //MARK: - INIT
     init(color: UIColor, size: CGSize){
@@ -30,6 +31,7 @@ class Player: SKSpriteNode {
         physicsBody?.collisionBitMask = PhysicsCategory.Platform
         physicsBody?.usesPreciseCollisionDetection = true
         physicsBody?.mass = 1
+        previousYVelocity = (physicsBody?.velocity.dy)!
 
     }
 
@@ -42,13 +44,15 @@ class Player: SKSpriteNode {
 //MARK: - UPDATE MOVEMENT
     func update(delta: NSTimeInterval) {
         
-        guard isJumping else {return}
         
-        if physicsBody?.velocity.dy == 0{
-            
+
+        if physicsBody?.velocity.dy == 0 && previousYVelocity != 0 && isJumping{
             isJumping = false
             delegate?.playerLanded()
         }
+        
+        previousYVelocity = (physicsBody?.velocity.dy)!
+        
     }
     
     func jump(gravityDirection: GravityDirection){
