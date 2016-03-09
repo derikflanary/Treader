@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import SceneKit
 
 struct PhysicsCategory {
     static let Player: UInt32 = 0x00
@@ -36,6 +37,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
     var gravityDirection = GravityDirection.Down
     var platforms = [Platform]()
     var gravityChanged = false
+    let cameraNode = SKCameraNode()
+    var firstPlatform = true
+    var touchStartTime = NSTimeInterval()
+    var totalTouchTime = NSTimeInterval()
     
 //MARK: - INIT
     override init(size: CGSize) {
@@ -51,9 +56,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
         /* Setup your scene here */
         setupWorld()
         
+        cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        addChild(cameraNode)
+        camera = cameraNode
+        
         let singleTap = UITapGestureRecognizer(target: self, action: "singleTapped")
         singleTap.numberOfTapsRequired = 1
-        view.addGestureRecognizer(singleTap)
+//        view.addGestureRecognizer(singleTap)
         
         let swipe = UISwipeGestureRecognizer(target: self, action: "swiped:")
         swipe.direction = .Up
@@ -68,11 +77,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
     private func setupWorld() {
         self.anchorPoint = CGPointMake(0.0, 0.0)
         
+        let stars = SKEmitterNode(fileNamed: "Stars")
+        stars?.targetNode = self.scene
+        stars?.advanceSimulationTime(NSTimeInterval(15))
+        stars?.position = CGPointMake(frame.width/2, frame.height/2)
+        stars?.particlePositionRange = CGVector(dx: frame.size.width, dy: frame.size.height)
+        self.addChild(stars!)
+        
         //setup world physics
-        physicsWorld.gravity = CGVectorMake(0, -4)
+        physicsWorld.gravity = CGVectorMake(0, -5)
         physicsWorld.contactDelegate = self
         
-        self.backgroundColor = SKColor(CGColor: UIColor.lightGrayColor().CGColor)
+        self.backgroundColor = SKColor(CGColor: UIColor.blackColor().CGColor)
         
         player.position = CGPointMake(100, 110);
         player.delegate = self
@@ -100,7 +116,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
         
         player.update(delta)
         
+        //Gameover check
         if player.position.y > size.height + 100 || player.position.y < -100{
+            
             self.removeAllChildren()
             self.removeAllActions()
             let gameScene = GameScene(size: self.size)
@@ -109,7 +127,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
             self.scene!.view?.presentScene(gameScene, transition: transition)
             
         }
-        
         /* Called before each frame is rendered */
     }
     
@@ -121,21 +138,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
                 SKAction.waitForDuration(1.2)
                 ])
             ))
+        
+//        runAction(SKAction.scaleBy(1.5, duration: 1.0))
     }
     
     func addPlatform(){
+
         let platform = Platform(color: UIColor.darkGrayColor(), size: CGSizeMake(200, 5))
         
         // Determine where to spawn the platform along the Y axis
-        let actualY = random(min: platform.size.height/2, max: size.height - platform.size.height/2)
+        var actualY = random(min: platform.size.height/2, max: size.height - platform.size.height/2)
         
+        if firstPlatform{
+            actualY = 200
+            firstPlatform = false
+        }
         // Position the platform slightly off-screen along the right edge,
         // and along a random position along the Y axis as calculated above
-        platform.position = CGPoint(x: size.width + platform.size.width/2, y: actualY)
+        platform.position = CGPoint(x: (view?.bounds.width)! + platform.size.width, y: actualY)
         
         addChild(platform)
         
         platform.move(size.width)
+        
+        cameraNode.runAction(SKAction.scaleTo(1.2, duration: 1.0))
     }
     
     func random() -> CGFloat {
@@ -146,6 +172,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
         return random() * (max - min) + min
     }
     
+//MARK: - TOUCHES
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        touchStartTime = previousUpdateTime
+    }
+    
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        touchStartTime = 0
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard touchStartTime != 0 else {return}
+        totalTouchTime = previousUpdateTime - touchStartTime
+        
+        guard !player.isJumping else{return}
+        player.jump(gravityDirection, timeHeld: totalTouchTime)
+    }
 //MARK: - GESTURE RECOGNIZER FUNCTIONS
     func swiped(gesture: UIGestureRecognizer) {
         
@@ -159,7 +202,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
         
         guard !player.isJumping else{return}
         
-        player.jump(gravityDirection)
+//        player.jump(gravityDirection)
     }
     
 //MARK: - GRAVITY MANIPULATION
@@ -178,6 +221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PlayerDelegate {
     
 //MARK: - PLAYER DELEGATE
     func playerLanded() {
+        
         gravityChanged = false
     }
     

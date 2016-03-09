@@ -39,13 +39,14 @@ class Player: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-
-    
 //MARK: - UPDATE MOVEMENT
     func update(delta: NSTimeInterval) {
         
-        
+        if physicsBody?.velocity.dy > 0 || physicsBody?.velocity.dy < 0{
 
+            isJumping = true
+        }
+        
         if physicsBody?.velocity.dy == 0 && previousYVelocity != 0 && isJumping{
             isJumping = false
             delegate?.playerLanded()
@@ -55,14 +56,18 @@ class Player: SKSpriteNode {
         
     }
     
-    func jump(gravityDirection: GravityDirection){
-        
+    func jump(gravityDirection: GravityDirection, timeHeld: NSTimeInterval){
+        var jumpPwr: CGFloat = 250 * (CGFloat(timeHeld) * 1.75 + 1)
+        if jumpPwr > 375{
+            jumpPwr = 375
+        }
+        print(jumpPwr)
         switch gravityDirection{
-            
+
         case .Down:
-            physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 350.0))
+            physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: jumpPwr))
         case .Up:
-            physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: -250.0))
+            physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: -jumpPwr))
         }
         
         isJumping = true

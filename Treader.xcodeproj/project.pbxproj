@@ -30,6 +30,12 @@
 		EE0C61481C863E7B0093EE2B /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0C613C1C863E7B0093EE2B /* SKTTimingFunctions.swift */; };
 		EE0C61491C863E7B0093EE2B /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0C613D1C863E7B0093EE2B /* Vector3.swift */; };
 		EE0C614D1C86563F0093EE2B /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0C614C1C86563F0093EE2B /* Platform.swift */; };
+		EED3932E1C8CC3AC00023B2A /* StarsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED3932D1C8CC3AC00023B2A /* StarsOverlay.swift */; };
+		EED393321C8CC42700023B2A /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = EED393301C8CC42700023B2A /* spark.png */; };
+		EED393351C8CC70400023B2A /* Stars.scnp in Resources */ = {isa = PBXBuildFile; fileRef = EED393331C8CC70400023B2A /* Stars.scnp */; };
+		EED393361C8CC70400023B2A /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = EED393341C8CC70400023B2A /* star.png */; };
+		EEF680511C8CD840009AD9B5 /* Stars.sks in Resources */ = {isa = PBXBuildFile; fileRef = EEF680501C8CD840009AD9B5 /* Stars.sks */; };
+		EEF680531C8DF2AF009AD9B5 /* TouchDownGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF680521C8DF2AF009AD9B5 /* TouchDownGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +85,12 @@
 		EE0C613C1C863E7B0093EE2B /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		EE0C613D1C863E7B0093EE2B /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
 		EE0C614C1C86563F0093EE2B /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		EED3932D1C8CC3AC00023B2A /* StarsOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarsOverlay.swift; sourceTree = "<group>"; };
+		EED393301C8CC42700023B2A /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		EED393331C8CC70400023B2A /* Stars.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Stars.scnp; sourceTree = "<group>"; };
+		EED393341C8CC70400023B2A /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		EEF680501C8CD840009AD9B5 /* Stars.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Stars.sks; sourceTree = "<group>"; };
+		EEF680521C8DF2AF009AD9B5 /* TouchDownGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchDownGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +143,14 @@
 			children = (
 				EE0C60FD1C863B320093EE2B /* AppDelegate.swift */,
 				EE0C61011C863B320093EE2B /* GameScene.swift */,
+				EEF680501C8CD840009AD9B5 /* Stars.sks */,
 				EE0C612F1C863BF60093EE2B /* Player.swift */,
 				EE0C614C1C86563F0093EE2B /* Platform.swift */,
+				EED3932D1C8CC3AC00023B2A /* StarsOverlay.swift */,
+				EED393331C8CC70400023B2A /* Stars.scnp */,
+				EED393341C8CC70400023B2A /* star.png */,
+				EED393301C8CC42700023B2A /* spark.png */,
+				EEF680521C8DF2AF009AD9B5 /* TouchDownGestureRecognizer.swift */,
 				EE0C614A1C8654E70093EE2B /* ViewController */,
 				EE0C61311C863E7B0093EE2B /* SKTUtils */,
 				EE0C61081C863B320093EE2B /* Assets.xcassets */,
@@ -301,10 +319,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EED393321C8CC42700023B2A /* spark.png in Resources */,
 				EE0C61001C863B320093EE2B /* GameScene.sks in Resources */,
 				EE0C610C1C863B320093EE2B /* LaunchScreen.storyboard in Resources */,
 				EE0C61091C863B320093EE2B /* Assets.xcassets in Resources */,
+				EED393361C8CC70400023B2A /* star.png in Resources */,
+				EEF680511C8CD840009AD9B5 /* Stars.sks in Resources */,
 				EE0C61071C863B320093EE2B /* Main.storyboard in Resources */,
+				EED393351C8CC70400023B2A /* Stars.scnp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +353,7 @@
 			files = (
 				EE0C61441C863E7B0093EE2B /* SKColor+Extensions.swift in Sources */,
 				EE0C61481C863E7B0093EE2B /* SKTTimingFunctions.swift in Sources */,
+				EED3932E1C8CC3AC00023B2A /* StarsOverlay.swift in Sources */,
 				EE0C61421C863E7B0093EE2B /* SKAction+Extensions.swift in Sources */,
 				EE0C614D1C86563F0093EE2B /* Platform.swift in Sources */,
 				EE0C61301C863BF60093EE2B /* Player.swift in Sources */,
@@ -341,6 +364,7 @@
 				EE0C61471C863E7B0093EE2B /* SKTEffects.swift in Sources */,
 				EE0C61021C863B320093EE2B /* GameScene.swift in Sources */,
 				EE0C61041C863B320093EE2B /* GameViewController.swift in Sources */,
+				EEF680531C8DF2AF009AD9B5 /* TouchDownGestureRecognizer.swift in Sources */,
 				EE0C61411C863E7B0093EE2B /* Int+Extensions.swift in Sources */,
 				EE0C613F1C863E7B0093EE2B /* CGPoint+Extensions.swift in Sources */,
 				EE0C61431C863E7B0093EE2B /* SKAction+SpecialEffects.swift in Sources */,
@@ -574,6 +598,7 @@
 				EE0C61281C863B320093EE2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE0C61291C863B320093EE2B /* Build configuration list for PBXNativeTarget "TreaderTests" */ = {
 			isa = XCConfigurationList;
@@ -582,6 +607,7 @@
 				EE0C612B1C863B320093EE2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE0C612C1C863B320093EE2B /* Build configuration list for PBXNativeTarget "TreaderUITests" */ = {
 			isa = XCConfigurationList;
@@ -590,6 +616,7 @@
 				EE0C612E1C863B320093EE2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
